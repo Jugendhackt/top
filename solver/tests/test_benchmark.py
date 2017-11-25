@@ -1,7 +1,7 @@
 import numpy as np
 from numpy import int32
 
-from benchmark_soft import benchmark
+from benchmark import benchmark
 
 
 def test_honor_double():
@@ -31,8 +31,8 @@ def test_honor_double():
     subject2 = np.full((1), 0, dtype=int32)
     room_type2 = np.full((1), 0, dtype=int32)
 
-    assert benchmark(teacher1, pupils1, hours1, subject1, room_type1) >\
-           benchmark(teacher2, pupils2, hours2, subject2, room_type2)
+    assert benchmark(teacher1, pupils1, hours1, subject1, room_type1, [1]) >\
+           benchmark(teacher2, pupils2, hours2, subject2, room_type2, [1])
 
 
 def test_punish_tripple():
@@ -64,8 +64,8 @@ def test_punish_tripple():
     subject2 = np.full((1), 0, dtype=int32)
     room_type2 = np.full((1), 0, dtype=int32)
 
-    assert benchmark(teacher1, pupils1, hours1, subject1, room_type1) <\
-           benchmark(teacher2, pupils2, hours2, subject2, room_type2)
+    assert benchmark(teacher1, pupils1, hours1, subject1, room_type1, [1]) <\
+           benchmark(teacher2, pupils2, hours2, subject2, room_type2, [1])
 
 
 def test_punish_long_days():
@@ -97,6 +97,6 @@ def test_punish_long_days():
     subject2 = np.full((1), 0, dtype=int32)
     room_type2 = np.full((1), 0, dtype=int32)
 
-    assert benchmark(teacher1, pupils1, hours1, subject1, room_type1) <\
-           benchmark(teacher2, pupils2, hours2, subject2, room_type2)
+    assert benchmark(teacher1, pupils1, hours1, subject1, room_type1, [1]) <\
+           benchmark(teacher2, pupils2, hours2, subject2, room_type2, [1])
 

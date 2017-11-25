@@ -1,0 +1,94 @@
+{
+  "type": "object",
+  "properties": {
+    "teachers": {
+      "type": "array",
+      "items": {
+        "title": "teacher",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "subjects": {
+              "type": "array",
+            "items": {
+              "title": "subjectId",
+              "type": "integer"
+            }
+          },
+          "hoursPerWeek": {
+              "type": "integer"
+          },
+          "blockedHours": {
+              "type": "array",
+            "items": {
+              "title": "blockedHour",
+              "type": "object",
+              "properties": {
+                "dayOfWeek": {
+                  "type": "integer"
+                },
+                "hour": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "students": {
+      "type": "array",
+      "items": {
+        "title": "student",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "subjects": {
+              "type": "array",
+            "items": {
+              "title": "subjectId",
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "subjects": {
+      "type": "array",
+      "items": {
+        "title": "subject",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "hoursPerWeek": {
+              "type": "integer"
+          },
+          "roomType": {
+              "type": "integer"
+          }
+        }
+      }
+    },
+    "roomTypes": {
+        "type": "array",
+      "items": {
+          "title": "roomType",
+        "type": "object",
+        "properties": {
+            "id": {
+              "type": "integer"
+          },
+            "count": {
+              "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

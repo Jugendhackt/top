@@ -14,4 +14,5 @@ python:
 install:
   - "[ -e solver/requirements.txt ] && pip install -r solver/requirements.txt || true"
 script:
-  - "cd solver && pytest"
+  - cd solver
+  - pytest

@@ -1,3 +1,4 @@
+import pytest
 from subprocess import Popen, PIPE
 from shlex import split
 
@@ -28,5 +29,6 @@ def test_fail_on_invalid_semantic():
     assert "Traceback" in stderr.decode("UTF-8")
 
 
+@pytest.mark.skip
 def test_valid_output():
     raise NotImplementedError

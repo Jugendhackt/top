@@ -1,0 +1,117 @@
+{
+  "type": "object",
+  "properties": {
+    "teachers": {
+      "type": "array",
+      "items": {
+        "title": "teacher",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "subjects": {
+              "type": "array",
+            "items": {
+              "title": "subjectId",
+              "type": "integer"
+            }
+          },
+          "hoursPerWeek": {
+              "type": "integer"
+          },
+          "blockedHours": {
+              "type": "array",
+            "items": {
+              "title": "blockedHour",
+              "type": "object",
+              "properties": {
+                "dayOfWeek": {
+                  "type": "integer"
+                },
+                "hour": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "firstName": {
+              "type": "string"
+          },
+          "lastName": {
+              "type": "string"
+          }
+        },
+        "required": ["id", "subjects", "hoursPerWeek", "blockedHours", "firstName", "lastName"]
+      }
+    },
+    "students": {
+      "type": "array",
+      "items": {
+        "title": "student",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "subjects": {
+              "type": "array",
+            "items": {
+              "title": "subjectId",
+              "type": "integer"
+            }
+          },
+          "firstName": {
+              "type": "string"
+          },
+          "lastName": {
+              "type": "string"
+          }
+        },
+        "required": ["id", "subjects", "firstName", "lastName"]
+      }
+    },
+    "subjects": {
+      "type": "array",
+      "items": {
+        "title": "subject",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "hoursPerWeek": {
+              "type": "integer"
+          },
+          "roomType": {
+              "type": "integer"
+          },
+          "name": {
+              "type": "string"
+          }
+        },
+        "required": ["id", "hoursPerWeek", "roomType", "name"]
+      }
+    },
+    "roomTypes": {
+        "type": "array",
+      "items": {
+          "title": "roomType",
+        "type": "object",
+        "properties": {
+            "id": {
+              "type": "integer"
+          },
+            "count": {
+              "type": "integer"
+          },
+          "name": {
+              "type": "string"
+          }
+        },
+        "required": ["id", "count", "name"]
+      }
+    }
+  },
+  "required": ["teachers", "students", "subjects", "roomTypes"]
+}

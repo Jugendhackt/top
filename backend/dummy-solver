@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+read i
+echo $i | grep 123 >/dev/null && echo "[]" || echo Error

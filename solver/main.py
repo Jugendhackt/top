@@ -1,7 +1,10 @@
+#!/usr/bin/env python3
+
 import sys
 import json
 
 import jsonschema
+
 
 def validate_contents(json_data):
     subject_ids = {s["id"] for s in json_data["subjects"]}
@@ -19,12 +22,18 @@ def validate_contents(json_data):
     if 0 in room_count:
         raise ValueError("there is a room which exists zero times!")
 
-if __name__ == "__main__":
-    with open('input_schema.json') as f:
-        input_schema = json.load(f)
 
+if __name__ == "__main__":
+    # read input data
     input_data = json.load(sys.stdin)
 
+    # validate the input
+    with open('input_schema.json') as f:
+        input_schema = json.load(f)
     jsonschema.validate(input_data, input_schema)
-
     validate_contents(input_data)
+
+    # TODO: solve
+
+    # output the solution
+    print(input_data)

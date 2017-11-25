@@ -13,3 +13,4 @@ install:
 script:
   - cd solver
   - pytest
+  - pylint -E solver

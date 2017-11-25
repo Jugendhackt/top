@@ -1,0 +1,58 @@
+<html lang="de">
+	<head>
+		<meta name="theme-color" content="#ffffff"></meta>
+		<meta name=viewport content="width=device-width, initial-scale=1, user-scalable=no"></meta>
+		<link rel="manifest" href="manifest.json"></link>
+		<link rel="icon" type="image/png" href="favicon.png" sizes="512x512"></link>
+		<title>std::plan</title>
+	</head>
+	<body>
+		<link rel="stylesheet" href="css/stdplan.css">
+		<nav class="light-blue z-depth-2">
+			<div class="nav-wrapper">
+				<div class="input-field">
+					<i class="material-icons prefix">search</i>
+					<label for="search">search</label>
+					<input id="search" type="search" autocomplete="off" required></input>
+					<i class="material-icons close">close</i>
+				</div>
+			</div>
+		</nav>
+
+		<div id="content">
+			<div id="content-desktop">
+				<div class="plan card z-depth-2">
+					<table class="centered striped">
+						<tbody id="table">
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div id="content-mobile">
+				<div class="plan card z-depth-2">
+				<ul id="tabs" class="tabs">
+					<li class="tab"><a class="active" href="#day-0">Mo</a></li>
+					<li class="tab"><a href="#day-1">Di</a></li>
+					<li class="tab"><a href="#day-2">Mi</a></li>
+					<li class="tab"><a href="#day-3">Do</a></li>
+					<li class="tab"><a href="#day-4">Fr</a></li>
+				</ul>
+				<div id="day-0"></div>
+				<div id="day-1"></div>
+				<div id="day-2"></div>
+				<div id="day-3"></div>
+				<div id="day-4"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="fail" class="flow-text">
+			<h2>Du bist fast fertig:</h2>
+			<h4>Gib deinen Namen in die Suchleiste ein</h4>
+		</div>
+
+		<script src="js/jquery.min.js"></script>
+		<script src="js/materialize.min.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>

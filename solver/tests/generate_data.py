@@ -13,7 +13,10 @@ def generate():
     rooms = []
     for i, cnt in enumerate(room_counts):
         for j in range(cnt):
-            rooms.append(i)
+            rooms.append({
+                "id": i,
+                "count": cnt
+            })
 
     subject_types = []
     for i in range(3 * 25):

@@ -2,3 +2,4 @@ numpy
 jsonschema
 pytest
 numba
+pylint

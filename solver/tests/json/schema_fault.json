@@ -1,0 +1,55 @@
+{
+  "teachers": [
+    {
+      "id": 0,
+      "subjects": [0, 1, 2, 3, 4],
+      "hoursPerWeek": 34,
+      "blockedHours": [
+        {"dayOfWeek": 0, "hour": 0},
+        {"dayOfWeek": 4, "hour": 7}
+      ]
+    }
+  ],
+
+  "students": [
+    {
+      "id": 0,
+      "subjects": [0, 1, 2, 3]
+    }
+  ],
+
+  "subjects": [
+    {
+      "id": 0,
+      "hoursPerWeek": 3,
+      "roomType": 0
+    },
+    {
+      "id": 1,
+      "hoursPerWeek": 3,
+      "roomType": 0
+    },
+    {
+      "id": 2,
+      "hoursPerWeek": 3,
+      "roomType": 0
+    },
+    {
+      "id": 3,
+      "hoursPerWeek": 3,
+      "roomType": 0
+    },
+    {
+      "id": 4,
+      "hoursPerWeek": 3,
+      "roomType": 0
+    }
+  ],
+
+  "roomTypes": [
+    {
+      "id": [0, 1, 2, 3],
+      "count": 30
+    }
+  ]
+}

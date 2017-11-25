@@ -1,0 +1,39 @@
+
+{
+  "type": "array",
+  "items": {
+  	"title": "Course",
+    "type": "object",
+    "properties": {
+    	"teacher": {
+      	"type": "integer"
+      },
+      "students": {
+        "type": "array",
+        "items": {
+          "title": "student",
+          "type": "integer"
+        },
+        "minItems": 1
+      },
+      "subject": {
+        "type": "integer"
+      },
+      "hours": {
+      	"type": "array",
+        "items": {
+          "title": "hour",
+        	"type": "array",
+          "items": {
+          	"title": "day_and_hour",
+            "type": "integer"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "minItems": 1
+      }
+    },
+    "required": ["teacher", "students", "subject", "hour"]
+  }
+}

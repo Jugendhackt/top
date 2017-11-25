@@ -17,22 +17,34 @@
 'use strict'
 
 const http = require('http')
+const url = require('url')
 
 module.exports = function() {
 
   const index = {}
 
-  const server = http.createServer(function(req, stream) {
-    stream.setHeader('Access-Control-Allow-Origin', '*')
+  const server = http.createServer(function(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*')
 
-    let url = require('url').parse(req.url, true) // true to get query as object
+    let requestUrl = url.parse(req.url, true) // true to get query as object
     let success = false
 
-    if (url.pathname in index) {
-      index[url.pathname](stream, url.query)
+    let path = req.method + ' ' + requestUrl.pathname
+    if (path in index) {
+      if (req.method === 'POST') {
+        let data = ''
+        req.on('data', function (chunk) {
+          data += chunk;
+        })
+        req.on('end', function () {
+          index[path](req, res, data, requestUrl.query)
+        })
+      } else {
+        index[path](req, res, requestUrl.query)
+      }
     } else {
-      stream.writeHead(404, { 'Content-Type': 'text/plain' })
-      stream.end('404')
+      res.writeHead(404, { 'Content-Type': 'text/plain' })
+      res.end('404')
     }
   })
 

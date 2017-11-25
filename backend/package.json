@@ -9,6 +9,6 @@
   "author": "",
   "license": "AGPL-3.0",
   "dependencies": {
-    "ajv": "^5.5.0"
+    "djv": "^2.0.0"
   }
 }

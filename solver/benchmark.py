@@ -18,7 +18,7 @@ def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_ty
     # validate input
 
     assert len(teachers) == len(students) == len(hours) == len(subject) == len(used_room_type)
-    num_couses = len(teachers)
+    num_courses = len(teachers)
 
     # initialize score
     global_score = 0.0
@@ -36,7 +36,7 @@ def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_ty
     num_used_room = full((num_rooms_types, 5, 20), 0)
 
     # iterate over the courses
-    for course_id in range(num_couses):
+    for course_id in range(num_courses):
 
         # honor double time lessons
         for n_hour in range(hours.shape[1] - 1):
@@ -95,4 +95,4 @@ def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_ty
     global_score += np.std(pupil_scores) * -10.0
     global_score += np.average(pupil_scores) * 2
 
-    return global_score
+    return global_score - (num_violations * 100.0)

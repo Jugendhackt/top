@@ -108,15 +108,17 @@ function updateData(update) {
 		$('input#search').focus()
 	}
 
-	$('input#search').autocomplete({
-		data: index,
-		limit: 30,
-		minLength: 1,
-		onAutocomplete: function(val) {
-			setData(data[val], false)
-			localStorage.setItem('selected', val)
-		}
-	})
+	setInterval(function() {
+		$('input#search').autocomplete({
+			data: index,
+			limit: 30,
+			minLength: 1,
+			onAutocomplete: function(val) {
+				setData(data[val], false)
+				localStorage.setItem('selected', val)
+			}
+		})
+	}, 100);
 }
 
 $.getJSON("http://127.0.0.1:4000/stdplan.json").done(function(res) {

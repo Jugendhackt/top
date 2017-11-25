@@ -148,7 +148,7 @@
 							<div class="12u">
 								<label class="fileContainer" id="fileContainer">
 										Click here to trigger the file uploader! and upload a JSON file...
-									<input id="filesInput" type="file"/>
+									<input type="file" id="filesInput">
 								</label>
 							</div>
 						</div>
@@ -174,17 +174,23 @@
 			    var form = document.getElementById("form");
 				form.onsubmit = function(event) {
 					event.preventDefault();
-					uploadButton.innerHTML = "Calculating... This might take a while."
 					var file = document.getElementById('filesInput').files[0];
 					var reader = new FileReader();
 					var xhr = new XMLHttpRequest();
-					this.xhr = xhr;
-					xhr.open("POST", "http://10.23.200.61:4000/problem.json");
+					xhr.open("POST", "http://127.0.0.1:4000/problem.json");
 					xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');
 					reader.onload = function(evt) {
-					xhr.send(evt.target.result);
+						xhr.send(evt.target.result);
 					};
 					reader.readAsBinaryString(file);
+					xhr.onload = function() {
+						if (xhr.status === 200) {
+							uploadButton.innerHTML = "Done! Look at your new timetable <a href=\"../viewer/index.html\">here</a>";
+						} else {
+							uploadButton.innerHTML = "Timetable generation failed: " + xhr.responseText;
+						}
+					};
+					uploadButton.innerHTML = "Calculating... This might take a while."
 				}
 				
 				//foo

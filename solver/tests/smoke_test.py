@@ -1,7 +1,10 @@
 def test_fail_on_invalid_input():
-    pass
+    raise NotImplementedError
 
 
 def test_schema_conform_output():
-    pass
+    raise NotImplementedError
 
+
+def test_valid_output():
+    raise NotImplementedError

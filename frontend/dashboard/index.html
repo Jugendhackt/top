@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>TOP - Timetable Optimisation Programm</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+		.fileContainer {
+    overflow: hidden;
+    position: relative;
+}
+
+.fileContainer [type=file] {
+    cursor: inherit;
+    display: block;
+    font-size: 999px;
+    filter: alpha(opacity=0);
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
+}
+</style>
+	</head>
+
+		<body>
+
+			<div id="header">
+				<span class="logo icon fa-paper-plane-o"></span>
+				<h1>Hi. This is TOP.</h1>
+				<p>A Timetable Optimisation Project</p>
+				<br />
+			</div>
+
+			<div id="main">
+
+				<header class="major container 75%">
+					<h2>We developt an
+					<br />
+					very coplex algorythm
+					<br />
+					construct timetables</h2>
+					
+					<p>in Jugend Hackt</p>
+					
+					
+				</header>
+
+				<div class="box alt container">
+					<section class="feature left">
+						<a href="#" class="image icon fa-signal"><img src="images/pic01.jpg" alt="" /></a>
+						<div class="content">
+							<h3>The First Thing</h3>
+							<p>The finding of the idea and constructing the data stucture.</p>
+						</div>
+					</section>
+					<section class="feature right">
+						<a href="#" class="image icon fa-code"><img src="images/pic02.jpg" alt="" /></a>
+						<div class="content">
+							<h3>The Second Thing</h3>
+							<p>The developing the algorythm and coding the front- and back-end.</p>
+						</div>
+					</section>
+					<section class="feature left">
+						<a href="#" class="image icon fa-mobile"><img src="images/pic03.jpg" alt="" /></a>
+						<div class="content">
+							<h3>The Third Thing</h3>
+							<p>Testing the Webside and the server.... And our project was redy!</p>
+						</div>
+					</section>
+				</div>
+
+				
+				<div class="box container">
+					<header>
+						<h2>Get starded!<hr /></h2>
+					</header				
+					<section>
+						<header>
+							<h3>TOP supports a lot of features.</h3>
+						</header>
+						<ul class="default">
+							<li>rooms</li>
+							<li>teachers</li>
+							<li>duble hours</li>
+							<li>different sujects</li>
+						</ul>
+					</section>
+
+					
+
+					
+					<section>
+						<header>
+							<h3>Table</h3>
+						</header>
+						<div class="table-wrapper">
+							<table class="default">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Name</th>
+										<th>Description</th>
+										<th>Subjects</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>45815</td>
+										<td>teacher1</td>
+										<td>German English</td>
+										<td>29.99</td>
+									</tr>
+									<tr>
+										<td>24524</td>
+										<td>teacher2</td>
+										<td>Math Science.</td>
+										<td>19.99</td>
+									</tr>
+
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="3"></td>
+										<td>100.00</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</section>
+				</div>
+			</div>
+
+		<!-- Footer -->
+			<div id="footer">
+				<div class="container 75%">
+
+					<header class="major last">
+						<h2>Enter your datas:</h2>
+					</header>
+					<form method="POST" handler="http://10.23.40.212:4000/problem.json" id="form">
+						<div class="row">
+							<div class="12u">
+								<label class="fileContainer" id="fileContainer">
+										Click here to trigger the file uploader! and upload a JSON file...
+									<input id="filesInput" type="file"/>
+								</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="12u">
+								<ul class="actions">
+									<li><input type="submit" value="Send" /></li>
+								</ul>
+							</div>
+						</div>
+					</form>
+
+
+					<ul class="copyright">
+						<li>All rights reserved.</li><li>Without warranty!</li>
+					</ul>
+
+				</div>
+			</div>
+
+			<script>
+				var uploadButton = document.getElementById("fileContainer"); 
+			    var form = document.getElementById("form");
+				form.onsubmit = function(event) {
+					event.preventDefault();
+					uploadButton.innerHTML = "Calculating... This might take a while."
+					var file = document.getElementById('filesInput').files[0];
+					var reader = new FileReader();
+					var xhr = new XMLHttpRequest();
+					this.xhr = xhr;
+					xhr.open("POST", "http://10.23.200.61:4000/problem.json");
+					xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');
+					reader.onload = function(evt) {
+					xhr.send(evt.target.result);
+					};
+					reader.readAsBinaryString(file);
+				}
+				
+				//foo
+			</script>
+	</body>
+</html>

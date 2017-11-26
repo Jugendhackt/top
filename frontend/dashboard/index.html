@@ -143,7 +143,7 @@
 					<header class="major last">
 						<h2>Enter your datas:</h2>
 					</header>
-					<form method="POST" handler="http://10.23.40.212:4000/problem.json" id="form">
+					<form method="POST" id="form">
 						<div class="row">
 							<div class="12u">
 								<label class="fileContainer" id="fileContainer">
@@ -177,7 +177,7 @@
 					var file = document.getElementById('filesInput').files[0];
 					var reader = new FileReader();
 					var xhr = new XMLHttpRequest();
-					xhr.open("POST", "http://127.0.0.1:4000/problem.json");
+					xhr.open("POST", "/problem.json");
 					xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');
 					reader.onload = function(evt) {
 						xhr.send(evt.target.result);

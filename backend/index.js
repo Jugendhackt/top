@@ -114,7 +114,7 @@ djv.addSchema('output', outputSchema)
 
 loadFromDisk()
 
-const server = new WebServer()
+const server = new WebServer('../frontend/')
 
 server.listen('::', 4000)
 
@@ -144,7 +144,6 @@ server.route('GET /status', function(req, res) {
 })
 
 server.route('POST /problem.json', function(req, res, data) {
-  console.log('foo');
 
   if (solverRunning) {
     res.writeHead(500, { 'Content-Type': 'text/plain' })

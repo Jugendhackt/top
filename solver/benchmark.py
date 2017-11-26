@@ -3,8 +3,8 @@ from numpy import full
 import numpy as np
 
 
-#@jit(float32(int32[:], int32[:, :], int32[:, :, :], int32[:], int32[:], int32[:]))
-def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_type):
+#@jit(float32(int32[:], int32[:, :], int32[:, :, :], int32[:], int32[:], int32[:], int32[:], int32[:], int32[:]))
+def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_type, subjects_of_students, subjects_of_teachers, hours_of_teacher):
     """
 
     Every list is in the first dimension the list of couses
@@ -34,6 +34,8 @@ def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_ty
     timetables_students = full((num_students, 5, 20), -1)
     timetables_teachers = full((num_teachers, 5, 20), -1)
     num_used_room = full((num_rooms_types, 5, 20), 0)
+
+    # subjects_student_satisfied = full((num_students, ), -1)
 
     # iterate over the courses
     for course_id in range(num_courses):
@@ -85,7 +87,9 @@ def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_ty
         for day_index, day in enumerate(timetable):
             for hour, course in enumerate(day):
                 if course != -1:
+                    # punish early and late classes
                     pupil_scores[pupil] -= (hour - 4) ** 2 * (1 if day_index == 5 else .5)
+                    # check if 
 
         # punish monday first lesson
         if [0, 0] != -1:

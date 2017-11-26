@@ -62,24 +62,31 @@ module.exports = function(dir) {
         index[path](req, res, requestUrl.query)
       }
     } else {
-
       let filePath = dir + requestUrl.pathname
 
       fs.stat(filePath, function(err, stats) {
-        if (!err && stats.isDirectory()) filePath += '/index.html'
-      })
-
-      let extname = filePath.split('.').pop().toLowerCase()
-      let contentType = mimeTypes[extname] || 'text/html'
-
-      fs.readFile(filePath, function(error, content) {
-        if (error) {
-          res.writeHead(404, { 'Content-Type': 'text/plain' })
-          res.end('404')
-        } else {
-          res.writeHead(200, { 'Content-Type': contentType })
-          res.end(content, 'utf-8')
+        if (!err && stats.isDirectory()) {
+          if (requestUrl.pathname.slice(-1) === '/') {
+            filePath += 'index.html'
+          } else {
+            res.writeHead(301, { 'Location': requestUrl.pathname + '/' })
+            res.end()
+            return
+          }
         }
+
+        let extname = filePath.split('.').pop().toLowerCase()
+        let contentType = mimeTypes[extname] || 'text/html'
+
+        fs.readFile(filePath, function(error, content) {
+          if (error) {
+            res.writeHead(404, { 'Content-Type': 'text/plain' })
+            res.end('404')
+          } else {
+            res.writeHead(200, { 'Content-Type': contentType })
+            res.end(content, 'utf-8')
+          }
+        })
       })
 
     }

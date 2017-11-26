@@ -45,8 +45,8 @@ def benchmark(teacher, students, hours, subject, used_room_type, qty_of_room_typ
 
     students_subjects_satisfied = full((num_students, num_subjects), 0)
     for student, subjects in enumerate(subjects_of_students):
-        for subject in subjects:
-            students_subjects_satisfied[student, subject] = 1
+        for current_subject in subjects:
+            students_subjects_satisfied[student, current_subject] = 1
 
     # iterate over the courses
     for course_id in range(num_courses):

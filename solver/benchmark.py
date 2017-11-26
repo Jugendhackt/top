@@ -6,19 +6,14 @@ import numpy as np
 #@jit(float32(int32[:], int32[:, :], int32[:, :, :], int32[:], int32[:], int32[:], int32[:, :], int32[:, :], int32[:]))
 def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_type, subjects_of_students, subjects_of_teachers, hours_of_teacher):
     """
-
     Solution Specific: Every index is in the first dimension the id of a course
     :param teachers: the teacher id
     :param students: a list of student ids, filld up with -1
     :param hours: a list of [day, hour] filled with [-1, -1]
     :param subject: the subject id
     :param used_room_type: the room id
-
-
     Problem specific: Every first index is the id of the ressource
     :param qty_of_room_type: how many instances of a given roomtype are available?
-
-
     :return: the score for the given solution
     """
     # validate input
@@ -107,7 +102,7 @@ def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_ty
                 if course != -1:
                     # punish early and late classes
                     pupil_scores[pupil] -= (hour - 4) ** 2 * (1 if day_index == 5 else .5)
-                    # check if 
+                    # check if
 
         # punish monday first lesson
         if [0, 0] != -1:

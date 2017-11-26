@@ -52,7 +52,7 @@ kurs = [raumbedarf, id]
 
  """
 
-
+"""
 def generate(constraints):
     # construct the static env
     hours_of_teachers = []

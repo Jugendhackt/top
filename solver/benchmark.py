@@ -7,12 +7,18 @@ import numpy as np
 def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_type, subjects_of_students, subjects_of_teachers, hours_of_teacher):
     """
 
-    Every list is in the first dimension the list of couses
+    Solution Specific: Every index is in the first dimension the id of a course
     :param teachers: the teacher id
     :param students: a list of student ids, filld up with -1
     :param hours: a list of [day, hour] filled with [-1, -1]
     :param subject: the subject id
     :param used_room_type: the room id
+
+
+    Problem specific: Every first index is the id of the ressource
+    :param qty_of_room_type: how many instances of a given roomtype are available?
+
+
     :return: the score for the given solution
     """
     # validate input

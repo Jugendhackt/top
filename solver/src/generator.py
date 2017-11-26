@@ -75,9 +75,12 @@ def generate(constraints):
         all_the_subjects += s
     subject_ranking = numpy.bincount(all_the_subjects)
     subject_ranking = sorted(enumerate(subject_ranking), key=lambda x:x[1])
-    teacher_by_subjects = [] #list of teachers that can teach the subject with id = index
+    subjects_and_who_teaches_them = [] #list of teachers that can teach the subject with id = index
     for subject in set(all_the_subjects):
-        teacher_by_subjects
+        subjects_and_who_teaches_them.append((subject, []))
+    for tid in range(len(subjects_of_teachers)):
+        for subject in subjects_of_teachers[tid]:
+            subjects_and_who_teaches_them[subjects_and_who_teaches_them.index(subject)]
     for subject in subject_ranking:
         pass
     result = []

@@ -1,4 +1,5 @@
-from random import randint, choice, choices
+from random import randint, choice
+import random
 from json import dumps
 
 
@@ -30,14 +31,14 @@ def generate():
     for i in range(randint(100, 1000)):
         students.append({
             "id": i,
-            "subjects": [x["id"] for x in choices(subject_types, k=10)]
+            "subjects": [x["id"] for x in random.choices(subject_types, k=10)]
         })
 
     teachers = []
     for i in range(randint(50, 200)):
         teachers.append({
             "id": i,
-            "subjects": [x["id"] for x in choices(subject_types, k=2 * 3)],
+            "subjects": [x["id"] for x in random.choices(subject_types, k=2 * 3)],
             "hoursPerWeek": randint(25, 40),
             "blockedHours": [{
                 "dayOfWeek": randint(0, 5),

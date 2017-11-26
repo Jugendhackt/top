@@ -18,8 +18,27 @@
 
 const http = require('http')
 const url = require('url')
+const fs = require('fs')
 
-module.exports = function() {
+module.exports = function(dir) {
+
+  const mimeTypes = {
+    'html': 'text/html',
+    'js': 'text/javascript',
+    'css': 'text/css',
+    'json': 'application/json',
+    'png': 'image/png',
+    'jpg': 'image/jpg',
+    'gif': 'image/gif',
+    'wav': 'audio/wav',
+    'mp4': 'video/mp4',
+    'woff': 'application/font-woff',
+    'ttf': 'application/font-ttf',
+    'eot': 'application/vnd.ms-fontobject',
+    'otf': 'application/font-otf',
+    'svg': 'application/image/svg+xml',
+    'woff2': 'font/woff2'
+  }
 
   const index = {}
 
@@ -43,8 +62,26 @@ module.exports = function() {
         index[path](req, res, requestUrl.query)
       }
     } else {
-      res.writeHead(404, { 'Content-Type': 'text/plain' })
-      res.end('404')
+
+      let filePath = dir + requestUrl.pathname
+
+      fs.stat(filePath, function(err, stats) {
+        if (!err && stats.isDirectory()) filePath += '/index.html'
+      })
+
+      let extname = filePath.split('.').pop().toLowerCase()
+      let contentType = mimeTypes[extname] || 'text/html'
+
+      fs.readFile(filePath, function(error, content) {
+        if (error) {
+          res.writeHead(404, { 'Content-Type': 'text/plain' })
+          res.end('404')
+        } else {
+          res.writeHead(200, { 'Content-Type': contentType })
+          res.end(content, 'utf-8')
+        }
+      })
+
     }
   })
 

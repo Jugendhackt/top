@@ -1,5 +1,6 @@
-from benchmark import benchmark
 from generator import generate, mutate
+
+from src.benchmark import benchmark
 
 
 def do_evoluton(constraints, n=1000):

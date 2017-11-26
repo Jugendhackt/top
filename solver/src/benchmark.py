@@ -45,8 +45,8 @@ def benchmark(teacher, students, hours, subject, used_room_type, qty_of_room_typ
 
     students_subjects_satisfied = full((num_students, num_subjects), 0)
     for student, subjects in enumerate(subjects_of_students):
-        for subject in subjects:
-            students_subjects_satisfied[student, subject] = 1
+        for current_subject in subjects:
+            students_subjects_satisfied[student, current_subject] = 1
 
     # iterate over the courses
     for course_id in range(num_courses):
@@ -120,7 +120,9 @@ def benchmark(teacher, students, hours, subject, used_room_type, qty_of_room_typ
             num_violations += 1
 
     # check for max teacher hours
-    # TODO: !!!
+    for teacher_id, timetable in enumerate(timetables_teachers):
+        if np.sum(timetable != -1) > hours_of_teachers[teacher_id]:
+            num_violations += 1
 
     # add the local scores
     global_score += np.std(pupil_scores) * -10.0

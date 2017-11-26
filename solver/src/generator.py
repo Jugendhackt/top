@@ -86,19 +86,47 @@ def generate(constraints):
         pass
     result = []
     return result
+"""
 
-
-def mutate(input_data, inverse_intensity=1):
+def mutate(input_data, inverse_intensity=1, iterations=1):
     #input = [teacher, students, hours, subject, used_room_type, qty_of_room_type, subjects_of_students, subjects_of_teachers, hours_of_teachers]
-    for course in range(len(input_data[0])):
-        if random.randint(0, 3 * inverse_intensity) >= 3 * inverse_intensity: #randomly decide to swap a teacher or not
-            partner = random.randint(0, len(input_data[0]))
-            input_data[0][course], input_data[0][partner] = input_data[0][partner], input_data[0][course]
-        if random.randint(0, 5 * inverse_intensity) >= 5 * inverse_intensity:#give one teacher more todo
-            input_data[0][course] = input_data[0][random.randint(0, len(input_data[0]))]
+    for i in range(iterations):
+        for course in range(len(input_data[0])):
+            if random.randint(0, 2 * inverse_intensity) >= 2 * inverse_intensity: #randomly decide to swap a teacher or not
+                partner = random.randint(0, len(input_data[0]) - 1)
+                input_data[0][course], input_data[0][partner] = input_data[0][partner], input_data[0][course]
 
-    result = input
+            if random.randint(0, 3 * inverse_intensity) >= 3 * inverse_intensity:#give one teacher more todo
+                input_data[0][course] = input_data[0][random.randint(0, len(input_data[0]) - 1)]
 
-    return result
+            if random.randint(0, inverse_intensity) >= inverse_intensity: #move students randomly
+                students = list([list(x) for x in input_data[1]])
+                rand = random.randint(0, len(input_data[0]) - 1)
+                rand_person = random.randint(0, len(input_data[1][rand]) - 1)
+                students.append(input_data[1][rand][rand_person])
+                del students[rand][rand_person]
+                input_data[1] = numpy.array(students)
 
-generate(generate_data.generate())
+            if random.randint(0, 3*inverse_intensity) >= 3*inverse_intensity: #change a courses time
+                lesson = random.randint(0, len(input_data[2][course]))
+                random_course = random.randint(0, len(input_data[0]) - 1)
+                random_course_lesson = random.randint(0, len(input_data[2][random_course]) - 1)
+                input_data[2][course][lesson] = input_data[2][random_course][random_course_lesson]
+
+    return input_data
+
+#generate(generate_data.generate())
+
+correct_teachers = numpy.array([0])
+correct_students = numpy.array([[0]])
+correct_hour = numpy.full((1,1,2), -1)
+correct_subjects = numpy.array([0])
+correct_used_room_type = numpy.array([0])
+correct_qty_of_room = numpy.array([1])
+correct_subjects_of_students = numpy.full((1,1), 0)
+correct_subjects_of_teachers = numpy.full((1,1), 0)
+correct_hours_of_teacher = numpy.array([10])
+
+test_var = mutate([correct_teachers, correct_students, correct_hour, correct_subjects, correct_used_room_type, correct_qty_of_room, correct_subjects_of_students, correct_subjects_of_teachers, correct_hours_of_teacher])
+
+print(test_var)

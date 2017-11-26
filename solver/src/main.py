@@ -2,8 +2,9 @@
 
 import sys
 import json
-
 import jsonschema
+
+from evolution import do_evoluton
 
 
 def validate_contents(json_data):
@@ -33,7 +34,8 @@ if __name__ == "__main__":
     jsonschema.validate(input_data, input_schema)
     validate_contents(input_data)
 
-    # TODO: solve
+    # run the evolution
+    best_solution = do_evoluton(input_data)
 
     # output the solution
     print(input_data)

@@ -51,7 +51,9 @@ kurs = [raumbedarf, id]
  """
 
 
-# NOTE from here on there will be only CUDA compatible code
+def generate(constraints):
+    pass
 
-def generate(students, teachers, subjects, rooms, index=0):
+
+def mutate(probability=.1):
     pass

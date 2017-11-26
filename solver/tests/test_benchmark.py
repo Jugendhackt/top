@@ -1,7 +1,7 @@
 import numpy as np
 from numpy import int32
 
-from benchmark import benchmark
+from src.benchmark import benchmark
 
 
 def test_honor_double():

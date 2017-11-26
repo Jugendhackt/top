@@ -3,8 +3,8 @@ from numpy import full
 import numpy as np
 
 
-#@jit(float32(int32[:], int32[:, :], int32[:, :, :], int32[:], int32[:], int32[:]))
-def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_type):
+#@jit(float32(int32[:], int32[:, :], int32[:, :, :], int32[:], int32[:], int32[:], int32[:, :], int32[:, :], int32[:]))
+def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_type, subjects_of_students, subjects_of_teachers, hours_of_teacher):
     """
 
     Solution Specific: Every index is in the first dimension the id of a course
@@ -34,6 +34,7 @@ def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_ty
     num_students = np.max(students) + 1
     num_teachers = np.max(teachers) + 1
     num_rooms_types = np.max(used_room_type) + 1
+    num_subjects = np.max(subject) + 1
 
     assert num_rooms_types == len(qty_of_room_type)
 
@@ -41,8 +42,21 @@ def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_ty
     timetables_teachers = full((num_teachers, 5, 20), -1)
     num_used_room = full((num_rooms_types, 5, 20), 0)
 
+    students_subjects_satisfied = full((num_students, num_subjects), 0)
+    for student, subjects in enumerate(subjects_of_students):
+        for subject in subjects:
+            students_subjects_satisfied[student, subject] = 1
+
     # iterate over the courses
     for course_id in range(num_courses):
+
+        # make gardening with the checklist
+        for student in students[course_id]:
+            students_subjects_satisfied[student, course_id] -= 1
+
+        # check wether teacher can teach the subject
+        if subject[course_id] in subjects_of_teachers[teachers[course_id]]:
+            num_violations += 1
 
         # honor double time lessons
         for n_hour in range(hours.shape[1] - 1):
@@ -91,11 +105,17 @@ def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_ty
         for day_index, day in enumerate(timetable):
             for hour, course in enumerate(day):
                 if course != -1:
+                    # punish early and late classes
                     pupil_scores[pupil] -= (hour - 4) ** 2 * (1 if day_index == 5 else .5)
+                    # check if 
 
         # punish monday first lesson
         if [0, 0] != -1:
             pupil_scores[pupil] -= 1
+
+    for checklist in students_subjects_satisfied:
+        if checklist.any():
+            num_violations += 1
 
     # add the local scores
     global_score += np.std(pupil_scores) * -10.0

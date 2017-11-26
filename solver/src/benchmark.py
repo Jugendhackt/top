@@ -120,7 +120,9 @@ def benchmark(teacher, students, hours, subject, used_room_type, qty_of_room_typ
             num_violations += 1
 
     # check for max teacher hours
-    # TODO: !!!
+    for teacher_id, timetable in enumerate(timetables_teachers):
+        if np.sum(timetable != -1) > hours_of_teachers[teacher_id]:
+            num_violations += 1
 
     # add the local scores
     global_score += np.std(pupil_scores) * -10.0

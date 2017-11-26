@@ -1,5 +1,6 @@
 import sys
 import numpy
+import random
 import json
 from numpy import int32
 
@@ -87,7 +88,17 @@ def generate(constraints):
     return result
 
 
-def mutate(probability=.1):
-    pass
+def mutate(input_data, inverse_intensity=1):
+    #input = [teacher, students, hours, subject, used_room_type, qty_of_room_type, subjects_of_students, subjects_of_teachers, hours_of_teachers]
+    for course in range(len(input_data[0])):
+        if random.randint(0, 3 * inverse_intensity) >= 3 * inverse_intensity: #randomly decide to swap a teacher or not
+            partner = random.randint(0, len(input_data[0]))
+            input_data[0][course], input_data[0][partner] = input_data[0][partner], input_data[0][course]
+        if random.randint(0, 5 * inverse_intensity) >= 5 * inverse_intensity:#give one teacher more todo
+            input_data[0][course] = input_data[0][random.randint(0, len(input_data[0]))]
+
+    result = input
+
+    return result
 
 generate(generate_data.generate())

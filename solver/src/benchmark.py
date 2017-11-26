@@ -4,22 +4,28 @@ import numpy as np
 
 
 #@jit(float32(int32[:], int32[:, :], int32[:, :, :], int32[:], int32[:], int32[:], int32[:, :], int32[:, :], int32[:]))
-def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_type, subjects_of_students, subjects_of_teachers, hours_of_teacher):
+def benchmark(teacher, students, hours, subject, used_room_type, qty_of_room_type, subjects_of_students, subjects_of_teachers, hours_of_teachers):
     """
+
     Solution Specific: Every index is in the first dimension the id of a course
-    :param teachers: the teacher id
+    :param teacher: the teacher id
     :param students: a list of student ids, filld up with -1
     :param hours: a list of [day, hour] filled with [-1, -1]
     :param subject: the subject id
     :param used_room_type: the room id
+
     Problem specific: Every first index is the id of the ressource
     :param qty_of_room_type: how many instances of a given roomtype are available?
+    :param subjects_of_students:  index is student_id, maps to list of subject_ids
+    :param subjects_of_teachers: index is teacher_id, maps to list of subject_ids
+    :param hours_of_teachers: index is teacher_id, maps to number of hours
+
     :return: the score for the given solution
     """
     # validate input
 
-    assert len(teachers) == len(students) == len(hours) == len(subject) == len(used_room_type)
-    num_courses = len(teachers)
+    assert len(teacher) == len(students) == len(hours) == len(subject) == len(used_room_type)
+    num_courses = len(teacher)
 
     # initialize score
     global_score = 0.0
@@ -27,7 +33,7 @@ def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_ty
 
     # build timetables for each student
     num_students = np.max(students) + 1
-    num_teachers = np.max(teachers) + 1
+    num_teachers = np.max(teacher) + 1
     num_rooms_types = np.max(used_room_type) + 1
     num_subjects = np.max(subject) + 1
 
@@ -50,7 +56,7 @@ def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_ty
             students_subjects_satisfied[student, course_id] -= 1
 
         # check wether teacher can teach the subject
-        if subject[course_id] in subjects_of_teachers[teachers[course_id]]:
+        if subject[course_id] in subjects_of_teachers[teacher[course_id]]:
             num_violations += 1
 
         # honor double time lessons
@@ -75,12 +81,12 @@ def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_ty
                             num_violations += 1
 
         # build timetables for each teacher
-        teacher = teachers[course_id]
+        current_teacher = teacher[course_id]
         for n_hour in range(hours.shape[1]):
             day, hour = hours[course_id, n_hour]
             if day != -1 or hour != -1:
-                if timetables_teachers[teacher, day, hour] == -1:
-                    timetables_teachers[teacher, day, hour] = course_id
+                if timetables_teachers[current_teacher, day, hour] == -1:
+                    timetables_teachers[current_teacher, day, hour] = course_id
                 else:
                     num_violations += 1
 
@@ -108,9 +114,13 @@ def benchmark(teachers, students, hours, subject, used_room_type, qty_of_room_ty
         if [0, 0] != -1:
             pupil_scores[pupil] -= 1
 
+    # evaluate the checklists
     for checklist in students_subjects_satisfied:
         if checklist.any():
             num_violations += 1
+
+    # check for max teacher hours
+    # TODO: !!!
 
     # add the local scores
     global_score += np.std(pupil_scores) * -10.0
